@@ -1,0 +1,514 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.4
+-- Dumped by pg_dump version 12.4
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: zasmt; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA zasmt;
+
+
+ALTER SCHEMA zasmt OWNER TO postgres;
+
+--
+-- Name: ztrans; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA ztrans;
+
+
+ALTER SCHEMA ztrans OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: building; Type: TABLE; Schema: zasmt; Owner: postgres
+--
+
+CREATE TABLE zasmt.building (
+    rowid uuid,
+    noofunits integer,
+    occupancystatusstndcode character(1),
+    propertycountylandusedescription character varying(45),
+    propertycountylandusecode character varying(10),
+    propertylandusestndcode character varying(5),
+    propertystatelandusedescription character varying(45),
+    propertystatelandusecode character varying(10),
+    buildingorimprovementnumber integer,
+    buildingclassstndcode character varying(10),
+    buildingqualitystndcode character(2),
+    buildingqualitystndcodeoriginal character varying(10),
+    buildingconditionstndcode character(2),
+    architecturalstylestndcode character(2),
+    yearbuilt integer,
+    effectiveyearbuilt integer,
+    yearremodeled integer,
+    noofstories character varying(10),
+    totalrooms integer,
+    totalbedrooms integer,
+    totalkitchens integer,
+    fullbath integer,
+    threequarterbath numeric(5,2),
+    halfbath numeric(5,2),
+    quarterbath numeric(5,2),
+    totalcalculatedbathcount numeric(5,2),
+    totalactualbathcount numeric(5,2),
+    bathsourcestndcode character(1),
+    totalbathplumbingfixtures integer,
+    roofcoverstndcode character(3),
+    roofstructuretypestndcode character(3),
+    heatingtypeorsystemstndcode character(3),
+    airconditioningtypeorsystemstndcode character(3),
+    foundationtypestndcode character(3),
+    elevatorstndcode character(1),
+    fireplaceflag character(1),
+    fireplacetypestndcode character(3),
+    fireplacenumber integer,
+    waterstndcode character(2),
+    sewerstndcode character(2),
+    mortgagelendername character varying(100),
+    timesharestndcode character(1),
+    comments character varying(200),
+    loadid bigint,
+    storytypestndcode character varying(6),
+    fips character(5),
+    batchid integer
+);
+
+
+ALTER TABLE zasmt.building OWNER TO postgres;
+
+--
+-- Name: buildingareas; Type: TABLE; Schema: zasmt; Owner: postgres
+--
+
+CREATE TABLE zasmt.buildingareas (
+    rowid uuid,
+    buildingorimprovementnumber integer,
+    buildingareasequencenumber smallint,
+    buildingareastndcode character varying(5),
+    buildingareasqft integer,
+    fips character(5),
+    batchid integer
+);
+
+
+ALTER TABLE zasmt.buildingareas OWNER TO postgres;
+
+--
+-- Name: main; Type: TABLE; Schema: zasmt; Owner: postgres
+--
+
+CREATE TABLE zasmt.main (
+    rowid uuid,
+    importparcelid bigint,
+    fips character(5),
+    state character(2),
+    county character varying(50),
+    valuecertdate date,
+    extractdate character varying(6),
+    edition smallint,
+    zvendorstndcode character(3),
+    assessorparcelnumber character varying(50),
+    dupapn character(2),
+    unformattedassessorparcelnumber character varying(50),
+    parcelsequencenumber integer,
+    alternateparcelnumber character varying(50),
+    oldparcelnumber character varying(50),
+    parcelnumbertypestndcode character(1),
+    recordsourcestndcode character(1),
+    recordtypestndcode character(2),
+    confidentialrecordflag character(1),
+    propertyaddresssourcestndcode character(1),
+    propertyhousenumber character varying(20),
+    propertyhousenumberext character varying(10),
+    propertystreetpredirectional character(2),
+    propertystreetname character varying(50),
+    propertystreetsuffix character varying(6),
+    propertystreetpostdirectional character(2),
+    propertyfullstreetaddress character varying(80),
+    propertycity character varying(45),
+    propertystate character(2),
+    propertyzip character varying(5),
+    propertyzip4 character(4),
+    originalpropertyfullstreetaddress character varying(100),
+    originalpropertyaddresslastline character varying(100),
+    propertybuildingnumber character varying(45),
+    propertyzoningdescription character varying(75),
+    propertyzoningsourcecode character varying(75),
+    censustract character varying(10),
+    taxidnumber character varying(50),
+    taxamount money,
+    taxyear integer,
+    taxdelinquencyflag character(1),
+    taxdelinquencyamount money,
+    taxdelinquencyyear integer,
+    taxratecodearea character varying(45),
+    legallot character varying(30),
+    legallotstndcode character(2),
+    legalotherlot character varying(30),
+    legalblock character varying(15),
+    legalsubdivisioncode character varying(10),
+    legalsubdivisionname character varying(100),
+    legalcondoprojectpuddevname character varying(50),
+    legalbuildingnumber character varying(45),
+    legalunit character varying(15),
+    legalsection character varying(15),
+    legalphase character varying(15),
+    legaltract character varying(15),
+    legaldistrict character varying(45),
+    legalmunicipality character varying(50),
+    legalcity character varying(50),
+    legaltownship character varying(50),
+    legalstrsection character varying(35),
+    legalstrtownship character varying(15),
+    legalstrrange character varying(15),
+    legalstrmeridian character varying(35),
+    legalsectwnrngmer character varying(45),
+    legalrecordersmapreference character varying(45),
+    legaldescription character varying,
+    legalneighborhoodsourcecode character varying(25),
+    noofbuildings integer,
+    lotsizeacres numeric(11,3),
+    lotsizesquarefeet numeric(11,2),
+    lotsizefrontagefeet numeric(11,2),
+    lotsizedepthfeet numeric(11,2),
+    lotsizeirr character varying(25),
+    lotsitetopographystndcode character(2),
+    loadid bigint,
+    propertyaddressmatchcode character(1),
+    propertyaddressunitdesignator character varying(10),
+    propertyaddressunitnumber character varying(11),
+    propertyaddresscarrierroute character(4),
+    propertyaddressgeocodematchcode character(1),
+    propertyaddresslatitude numeric(9,6),
+    propertyaddresslongitude numeric(9,6),
+    propertyaddresscensustractandblock character varying(16),
+    propertyaddressconfidencescore smallint,
+    propertyaddresscbsacode integer,
+    propertyaddresscbsadivisioncode integer,
+    propertyaddressmatchtype smallint,
+    propertyaddressdpv character(1),
+    propertygeocodequalitycode character varying(10),
+    propertyaddressqualitycode character varying(10),
+    subedition smallint,
+    batchid integer,
+    bkfspid integer,
+    sourcechksum integer
+);
+
+
+ALTER TABLE zasmt.main OWNER TO postgres;
+
+--
+-- Name: value; Type: TABLE; Schema: zasmt; Owner: postgres
+--
+
+CREATE TABLE zasmt.value (
+    "RowID" text,
+    "LandAssessedValue" money,
+    "ImprovementAssessedValue" money,
+    "TotalAssessedValue" money,
+    "AssessmentYear" integer,
+    "LandMarketValue" money,
+    "ImprovementMarketValue" money,
+    "MarketValueYear" integer,
+    "LandAppraisalValue" money,
+    "ImprovementAppraisalValue" money,
+    "TotalAppraisalValue" money,
+    "AppraisalValueYear" integer,
+    "FIPS" character(5),
+    "BatchID" integer
+);
+
+
+ALTER TABLE zasmt.value OWNER TO postgres;
+
+--
+-- Name: main; Type: TABLE; Schema: ztrans; Owner: postgres
+--
+
+CREATE TABLE ztrans.main (
+    transid character varying(250),
+    fips character(5),
+    state character(2),
+    county character varying(50),
+    dataclassstndcode character(1),
+    recordtypestndcode character(1),
+    recordingdate date,
+    recordingdocumentnumber character varying(25),
+    recordingbooknumber character varying(10),
+    recordingpagenumber character varying(10),
+    rerecordedcorrectionstndcode character(1),
+    priorrecordingdate date,
+    priordocumentdate date,
+    priordocumentnumber character varying(25),
+    priorbooknumber character varying(10),
+    priorpagenumber character varying(10),
+    documenttypestndcode character(4),
+    documentdate date,
+    signaturedate date,
+    effectivedate date,
+    buyervestingstndcode character(2),
+    buyermultivestingflag character(1),
+    partialinteresttransferstndcode character(1),
+    partialinteresttransferpercent numeric(5,3),
+    salespriceamount money,
+    salespriceamountstndcode character(2),
+    citytransfertax money,
+    countytransfertax money,
+    statetransfertax money,
+    totaltransfertax money,
+    intrafamilytransferflag character(1),
+    transfertaxexemptflag character(1),
+    propertyusestndcode character(2),
+    assessmentlandusestndcode character varying(5),
+    occupancystatusstndcode character(1),
+    legalstndcode character(1),
+    borrowervestingstndcode character(2),
+    lendername character varying(250),
+    lendertypestndcode character(2),
+    lenderidstndcode character varying(6),
+    lenderdbaname character varying(135),
+    dbalendertypestndcode character(2),
+    dbalenderidstndcode character varying(6),
+    lendermailcareofname character varying(250),
+    lendermailhousenumber character varying(13),
+    lendermailhousenumberext character varying(10),
+    lendermailstreetpredirectional character(2),
+    lendermailstreetname character varying(50),
+    lendermailstreetsuffix character varying(6),
+    lendermailstreetpostdirectional character(2),
+    lendermailfullstreetaddress character varying(80),
+    lendermailbuildingname character varying(45),
+    lendermailbuildingnumber character varying(15),
+    lendermailunitdesignator character varying(10),
+    lendermailunit character varying(15),
+    lendermailcity character varying(45),
+    lendermailstate character(2),
+    lendermailzip character varying(5),
+    lendermailzip4 character(4),
+    loanamount money,
+    loanamountstndcode character(1),
+    maximumloanamount money,
+    loantypestndcode character(2),
+    loantypeclosedopenendstndcode character(1),
+    loantypefutureadvanceflag character(1),
+    loantypeprogramstndcode character(2),
+    loanratetypestndcode character(3),
+    loanduedate date,
+    loantermmonths integer,
+    loantermyears integer,
+    initialinterestrate numeric(5,3),
+    armfirstadjustmentdate date,
+    armfirstadjustmentmaxrate numeric(5,3),
+    armfirstadjustmentminrate numeric(5,3),
+    armindexstndcode character varying(5),
+    armadjustmentfrequencystndcode character(1),
+    armmargin numeric(5,3),
+    arminitialcap numeric(5,3),
+    armperiodiccap numeric(5,3),
+    armlifetimecap numeric(5,3),
+    armmaxinterestrate numeric(5,3),
+    armmininterestrate numeric(5,3),
+    interestonlyflag character(1),
+    interestonlyterm character(3),
+    prepaymentpenaltyflag character(1),
+    prepaymentpenaltyterm character(3),
+    biweeklypaymentflag character(1),
+    assumabilityriderflag character(1),
+    balloonriderflag character(1),
+    condominiumriderflag character(1),
+    plannedunitdevelopmentriderflag character(1),
+    secondhomeriderflag character(1),
+    onetofourfamilyriderflag character(1),
+    concurrentmtgedocorbkpg character varying(25),
+    loannumber character varying(45),
+    mersminnumber character varying(25),
+    casenumber character varying(45),
+    mersflag character(1),
+    titlecompanyname character varying(250),
+    titlecompanyidstndcode character varying(6),
+    accommodationrecordingflag character(1),
+    unpaidbalance money,
+    installmentamount money,
+    installmentduedate date,
+    totaldelinquentamount money,
+    delinquentasofdate date,
+    currentlender character varying(250),
+    currentlendertypestndcode character(2),
+    currentlenderidstndcode character varying(6),
+    trusteesalenumber character varying(25),
+    attorneyfilenumber character varying(25),
+    auctiondate date,
+    auctiontime time without time zone,
+    auctionfullstreetaddress character varying(80),
+    auctioncityname character varying(45),
+    startingbid money,
+    keyeddate date,
+    keyerid character varying(10),
+    subvendorstndcode character varying(5),
+    imagefilename character varying(250),
+    builderflag character(1),
+    matchstndcode character(2),
+    reostndcode character varying(6),
+    updateownershipflag character(1),
+    loadid bigint,
+    statusind integer,
+    transactiontypestndcode character(1),
+    batchid integer,
+    bkfspid integer,
+    zvendorstndcode character(3),
+    sourcechksum integer
+);
+
+
+ALTER TABLE ztrans.main OWNER TO postgres;
+
+--
+-- Name: propertyinfo; Type: TABLE; Schema: ztrans; Owner: postgres
+--
+
+CREATE TABLE ztrans.propertyinfo (
+    transid bigint,
+    assessorparcelnumber character varying(50),
+    apnindicatorstndcode character(1),
+    taxidnumber character varying(50),
+    taxidindicatorstndcode character(1),
+    unformattedassessorparcelnumber character varying(50),
+    alternateparcelnumber character varying(50),
+    hawaiicondocprcode character(4),
+    propertyhousenumber character varying(13),
+    propertyhousenumberext character varying(10),
+    propertystreetpredirectional character(2),
+    propertystreetname character varying(50),
+    propertystreetsuffix character varying(6),
+    propertystreetpostdirectional character(2),
+    propertybuildingnumber character varying(45),
+    propertyfullstreetaddress character varying(80),
+    propertycity character varying(45),
+    propertystate character(2),
+    propertyzip character varying(5),
+    propertyzip4 character(4),
+    originalpropertyfullstreetaddress character varying(100),
+    originalpropertyaddresslastline character varying(100),
+    propertyaddressstndcode character(1),
+    legallot character varying(100),
+    legalotherlot character varying(100),
+    legallotcode character(2),
+    legalblock character varying(50),
+    legalsubdivisionname character varying(200),
+    legalcondoprojectpuddevname character varying(100),
+    legalbuildingnumber character varying(45),
+    legalunit character varying(100),
+    legalsection character varying(100),
+    legalphase character varying(50),
+    legaltract character varying(50),
+    legaldistrict character varying(45),
+    legalmunicipality character varying(50),
+    legalcity character varying(50),
+    legaltownship character varying(50),
+    legalstrsection character varying(100),
+    legalstrtownship character varying(15),
+    legalstrrange character varying(15),
+    legalstrmeridian character varying(35),
+    legalsectwnrngmer character varying(165),
+    legalrecordersmapreference character varying(100),
+    legaldescription character varying(2000),
+    legallotsize character varying(14),
+    propertysequencenumber integer,
+    propertyaddressmatchcode character(1),
+    propertyaddressunitdesignator character varying(10),
+    propertyaddressunitnumber character varying(11),
+    propertyaddresscarrierroute character(4),
+    propertyaddressgeocodematchcode character(1),
+    propertyaddresslatitude numeric(9,6),
+    propertyaddresslongitude numeric(9,6),
+    propertyaddresscensustractandblock character varying(16),
+    propertyaddressconfidencescore smallint,
+    propertyaddresscbsacode integer,
+    propertyaddresscbsadivisioncode integer,
+    propertyaddressmatchtype smallint,
+    propertyaddressdpv character(1),
+    propertygeocodequalitycode character varying(10),
+    propertyaddressqualitycode character varying(10),
+    fips character(5),
+    loadid bigint,
+    importparcelid bigint,
+    bkfspid integer,
+    assessmentrecordmatchflag smallint,
+    batchid integer
+);
+
+
+ALTER TABLE ztrans.propertyinfo OWNER TO postgres;
+
+--
+-- Data for Name: building; Type: TABLE DATA; Schema: zasmt; Owner: postgres
+--
+
+COPY zasmt.building (rowid, noofunits, occupancystatusstndcode, propertycountylandusedescription, propertycountylandusecode, propertylandusestndcode, propertystatelandusedescription, propertystatelandusecode, buildingorimprovementnumber, buildingclassstndcode, buildingqualitystndcode, buildingqualitystndcodeoriginal, buildingconditionstndcode, architecturalstylestndcode, yearbuilt, effectiveyearbuilt, yearremodeled, noofstories, totalrooms, totalbedrooms, totalkitchens, fullbath, threequarterbath, halfbath, quarterbath, totalcalculatedbathcount, totalactualbathcount, bathsourcestndcode, totalbathplumbingfixtures, roofcoverstndcode, roofstructuretypestndcode, heatingtypeorsystemstndcode, airconditioningtypeorsystemstndcode, foundationtypestndcode, elevatorstndcode, fireplaceflag, fireplacetypestndcode, fireplacenumber, waterstndcode, sewerstndcode, mortgagelendername, timesharestndcode, comments, loadid, storytypestndcode, fips, batchid) FROM stdin;
+\.
+
+
+--
+-- Data for Name: buildingareas; Type: TABLE DATA; Schema: zasmt; Owner: postgres
+--
+
+COPY zasmt.buildingareas (rowid, buildingorimprovementnumber, buildingareasequencenumber, buildingareastndcode, buildingareasqft, fips, batchid) FROM stdin;
+\.
+
+
+--
+-- Data for Name: main; Type: TABLE DATA; Schema: zasmt; Owner: postgres
+--
+
+COPY zasmt.main (rowid, importparcelid, fips, state, county, valuecertdate, extractdate, edition, zvendorstndcode, assessorparcelnumber, dupapn, unformattedassessorparcelnumber, parcelsequencenumber, alternateparcelnumber, oldparcelnumber, parcelnumbertypestndcode, recordsourcestndcode, recordtypestndcode, confidentialrecordflag, propertyaddresssourcestndcode, propertyhousenumber, propertyhousenumberext, propertystreetpredirectional, propertystreetname, propertystreetsuffix, propertystreetpostdirectional, propertyfullstreetaddress, propertycity, propertystate, propertyzip, propertyzip4, originalpropertyfullstreetaddress, originalpropertyaddresslastline, propertybuildingnumber, propertyzoningdescription, propertyzoningsourcecode, censustract, taxidnumber, taxamount, taxyear, taxdelinquencyflag, taxdelinquencyamount, taxdelinquencyyear, taxratecodearea, legallot, legallotstndcode, legalotherlot, legalblock, legalsubdivisioncode, legalsubdivisionname, legalcondoprojectpuddevname, legalbuildingnumber, legalunit, legalsection, legalphase, legaltract, legaldistrict, legalmunicipality, legalcity, legaltownship, legalstrsection, legalstrtownship, legalstrrange, legalstrmeridian, legalsectwnrngmer, legalrecordersmapreference, legaldescription, legalneighborhoodsourcecode, noofbuildings, lotsizeacres, lotsizesquarefeet, lotsizefrontagefeet, lotsizedepthfeet, lotsizeirr, lotsitetopographystndcode, loadid, propertyaddressmatchcode, propertyaddressunitdesignator, propertyaddressunitnumber, propertyaddresscarrierroute, propertyaddressgeocodematchcode, propertyaddresslatitude, propertyaddresslongitude, propertyaddresscensustractandblock, propertyaddressconfidencescore, propertyaddresscbsacode, propertyaddresscbsadivisioncode, propertyaddressmatchtype, propertyaddressdpv, propertygeocodequalitycode, propertyaddressqualitycode, subedition, batchid, bkfspid, sourcechksum) FROM stdin;
+\.
+
+
+--
+-- Data for Name: value; Type: TABLE DATA; Schema: zasmt; Owner: postgres
+--
+
+COPY zasmt.value ("RowID", "LandAssessedValue", "ImprovementAssessedValue", "TotalAssessedValue", "AssessmentYear", "LandMarketValue", "ImprovementMarketValue", "MarketValueYear", "LandAppraisalValue", "ImprovementAppraisalValue", "TotalAppraisalValue", "AppraisalValueYear", "FIPS", "BatchID") FROM stdin;
+\.
+
+
+--
+-- Data for Name: main; Type: TABLE DATA; Schema: ztrans; Owner: postgres
+--
+
+COPY ztrans.main (transid, fips, state, county, dataclassstndcode, recordtypestndcode, recordingdate, recordingdocumentnumber, recordingbooknumber, recordingpagenumber, rerecordedcorrectionstndcode, priorrecordingdate, priordocumentdate, priordocumentnumber, priorbooknumber, priorpagenumber, documenttypestndcode, documentdate, signaturedate, effectivedate, buyervestingstndcode, buyermultivestingflag, partialinteresttransferstndcode, partialinteresttransferpercent, salespriceamount, salespriceamountstndcode, citytransfertax, countytransfertax, statetransfertax, totaltransfertax, intrafamilytransferflag, transfertaxexemptflag, propertyusestndcode, assessmentlandusestndcode, occupancystatusstndcode, legalstndcode, borrowervestingstndcode, lendername, lendertypestndcode, lenderidstndcode, lenderdbaname, dbalendertypestndcode, dbalenderidstndcode, lendermailcareofname, lendermailhousenumber, lendermailhousenumberext, lendermailstreetpredirectional, lendermailstreetname, lendermailstreetsuffix, lendermailstreetpostdirectional, lendermailfullstreetaddress, lendermailbuildingname, lendermailbuildingnumber, lendermailunitdesignator, lendermailunit, lendermailcity, lendermailstate, lendermailzip, lendermailzip4, loanamount, loanamountstndcode, maximumloanamount, loantypestndcode, loantypeclosedopenendstndcode, loantypefutureadvanceflag, loantypeprogramstndcode, loanratetypestndcode, loanduedate, loantermmonths, loantermyears, initialinterestrate, armfirstadjustmentdate, armfirstadjustmentmaxrate, armfirstadjustmentminrate, armindexstndcode, armadjustmentfrequencystndcode, armmargin, arminitialcap, armperiodiccap, armlifetimecap, armmaxinterestrate, armmininterestrate, interestonlyflag, interestonlyterm, prepaymentpenaltyflag, prepaymentpenaltyterm, biweeklypaymentflag, assumabilityriderflag, balloonriderflag, condominiumriderflag, plannedunitdevelopmentriderflag, secondhomeriderflag, onetofourfamilyriderflag, concurrentmtgedocorbkpg, loannumber, mersminnumber, casenumber, mersflag, titlecompanyname, titlecompanyidstndcode, accommodationrecordingflag, unpaidbalance, installmentamount, installmentduedate, totaldelinquentamount, delinquentasofdate, currentlender, currentlendertypestndcode, currentlenderidstndcode, trusteesalenumber, attorneyfilenumber, auctiondate, auctiontime, auctionfullstreetaddress, auctioncityname, startingbid, keyeddate, keyerid, subvendorstndcode, imagefilename, builderflag, matchstndcode, reostndcode, updateownershipflag, loadid, statusind, transactiontypestndcode, batchid, bkfspid, zvendorstndcode, sourcechksum) FROM stdin;
+\.
+
+
+--
+-- Data for Name: propertyinfo; Type: TABLE DATA; Schema: ztrans; Owner: postgres
+--
+
+COPY ztrans.propertyinfo (transid, assessorparcelnumber, apnindicatorstndcode, taxidnumber, taxidindicatorstndcode, unformattedassessorparcelnumber, alternateparcelnumber, hawaiicondocprcode, propertyhousenumber, propertyhousenumberext, propertystreetpredirectional, propertystreetname, propertystreetsuffix, propertystreetpostdirectional, propertybuildingnumber, propertyfullstreetaddress, propertycity, propertystate, propertyzip, propertyzip4, originalpropertyfullstreetaddress, originalpropertyaddresslastline, propertyaddressstndcode, legallot, legalotherlot, legallotcode, legalblock, legalsubdivisionname, legalcondoprojectpuddevname, legalbuildingnumber, legalunit, legalsection, legalphase, legaltract, legaldistrict, legalmunicipality, legalcity, legaltownship, legalstrsection, legalstrtownship, legalstrrange, legalstrmeridian, legalsectwnrngmer, legalrecordersmapreference, legaldescription, legallotsize, propertysequencenumber, propertyaddressmatchcode, propertyaddressunitdesignator, propertyaddressunitnumber, propertyaddresscarrierroute, propertyaddressgeocodematchcode, propertyaddresslatitude, propertyaddresslongitude, propertyaddresscensustractandblock, propertyaddressconfidencescore, propertyaddresscbsacode, propertyaddresscbsadivisioncode, propertyaddressmatchtype, propertyaddressdpv, propertygeocodequalitycode, propertyaddressqualitycode, fips, loadid, importparcelid, bkfspid, assessmentrecordmatchflag, batchid) FROM stdin;
+\.
+
+
+--
+-- PostgreSQL database dump complete
+--
+
