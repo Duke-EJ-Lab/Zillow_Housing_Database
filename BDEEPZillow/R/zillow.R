@@ -22,7 +22,7 @@
 #' @import RPostgreSQL DBI
 #' @export
 get_from_db_state <- function(states_abbr, columns="*", max_num_recs=-1, database_name="zillow_2017_nov",
-                              host_ip="db1.econ.duke.edu", append=TRUE){
+                              host_ip="152.3.1.31", append=TRUE){
   # Make sure states_abbr are lower cased
   states_abbr <- tolower(states_abbr)
   # Gets database driver, assuming PostgreSQL database
@@ -102,7 +102,7 @@ get_from_db_state <- function(states_abbr, columns="*", max_num_recs=-1, databas
 #' @import RPostgreSQL DBI
 #' @export
 get_from_db_state_county <- function(state_county, columns="*", database_name="zillow_2017_nov",
-                                     host_ip="db1.econ.duke.edu", append=TRUE){
+                                     host_ip="152.3.1.31", append=TRUE){
   # Check valid input
   if(nrow(state_county)==0 || ncol(state_county)!=2 || any(nchar(as.character(state_county[,1]))!=2)){
     print("Invalid argument! Please input variable state_county as followed:")
@@ -160,7 +160,7 @@ get_from_db_state_county <- function(state_county, columns="*", database_name="z
 #' @import RPostgreSQL DBI
 #' @export
 get_from_db_fips <- function(fips, columns="*", database_name="zillow_2017_nov",
-                             host_ip="db1.econ.duke.edu", append=TRUE){
+                             host_ip="152.3.1.31", append=TRUE){
   sc <- get_state_county_by_fips(fips)[, c("state","county")]
   return(get_from_db_state_county(sc,
                                   columns=columns,
