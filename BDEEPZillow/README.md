@@ -10,7 +10,7 @@ install.packages("RPostgreSQL")
 
 Finally, to install (only for the first time) or update the package, use:
 ```
-devtools::install_github("uiuc-bdeep/Zillow_Housing_Database/BDEEPZillow")
+devtools::install_github("jrm87/Zillow_Housing_Database/BDEEPZillow")
 ```
 
 In some cases, you might need to restart the server to get rid of all errors and warnings before loading the library. After this, use command to load the BDEEPZillow library.
