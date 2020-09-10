@@ -4,7 +4,7 @@
 #' get_from_db_state
 #' @description This function gets a list of data.frames from the database, according to the given
 #'              states (through abbreviation).
-#' @param states_abbr   A vector of states abbreviation
+#' @param states_abbr   A vector of states fips
 #' @param columns       A vector of column names to export. Default to all columns (i.e. "*").
 #' @param max_num_recs  An integer indicating the maximum number of records to select,
 #'                      -1 indicating all (by default)
@@ -43,7 +43,7 @@ get_from_db_state <- function(states_abbr, columns="*", max_num_recs=-1, databas
   for (i in 1:len){
     state <- states_abbr[i]
     # ignore non-existing states & check for the table
-    if(!RPostgreSQL::dbExistsTable(con, c("hedonics_new", paste0(state, "_hedonics_new")))){
+    if(!RPostgreSQL::dbExistsTable(con, c("hedonics_new.", paste0("hedonics_new_",state)))){
       print(paste("Skipping State:", state))
       next
     }
@@ -54,15 +54,15 @@ get_from_db_state <- function(states_abbr, columns="*", max_num_recs=-1, databas
                                                paste0("SELECT ",
                                                       paste(columns, collapse = ","),
                                                       " FROM hedonics_new.",
-                                                      state,
-                                                      "_hedonics_new"))
+                                                      "hedonics_new_",
+                                                      state))
     } else {
       hedonics[[i]] <- RPostgreSQL::dbGetQuery(con,
                                                paste0("SELECT ",
                                                       paste(columns, collapse = ","),
                                                       " FROM hedonics_new.",
+                                                      "hedonics_new_",
                                                       state,
-                                                      "_hedonics_new",
                                                       " FETCH FIRST ",
                                                       max_num_recs,
                                                       " ROWS ONLY"))
@@ -126,8 +126,9 @@ get_from_db_state_county <- function(state_county, columns="*", database_name="z
     hedonics[[i]] <- RPostgreSQL::dbGetQuery(con, paste0("SELECT ",
                                                          paste(columns, collapse = ","),
                                                          " FROM hedonics_new.",
+                                                         "_hedonics_new",
                                                          tolower(state_county[i, 1]),
-                                                         "_hedonics_new WHERE county='",
+                                                         " WHERE county='",
                                                          toupper(state_county[i, 2]),
                                                          "'"))
     gc()
