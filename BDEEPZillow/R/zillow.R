@@ -56,14 +56,14 @@ get_from_db_state <- function(states_abbr, columns="*", max_num_recs=-1, databas
                                                paste0("SELECT ",
                                                       paste(columns, collapse = ","),
                                                       " FROM hedonics_new.",
-                                                      "hedonics_new_",
+                                                      "hedonics_",
                                                       state))
     } else {
       hedonics[[i]] <- RPostgreSQL::dbGetQuery(con,
                                                paste0("SELECT ",
                                                       paste(columns, collapse = ","),
                                                       " FROM hedonics_new.",
-                                                      "hedonics_new_",
+                                                      "hedonics_",
                                                       state,
                                                       " FETCH FIRST ",
                                                       max_num_recs,
@@ -128,7 +128,7 @@ get_from_db_state_county <- function(state_county, columns="*", database_name="z
     hedonics[[i]] <- RPostgreSQL::dbGetQuery(con, paste0("SELECT ",
                                                          paste(columns, collapse = ","),
                                                          " FROM hedonics_new.",
-                                                         "_hedonics_new",
+                                                         "_hedonics",
                                                          tolower(state_county[i, 1]),
                                                          " WHERE county='",
                                                          toupper(state_county[i, 2]),
@@ -178,25 +178,25 @@ get_from_db_fips <- function(fips, columns="*", database_name="zillow_2017_nov",
 #' @param database_name A string indicating the database name
 #' @param host_ip       A string indicating the ip address of the database VM
 #' @examples # Select single field from a given table
-#' @examples data <- get_from_db_usr("SELECT loadid FROM hedonics_new.sd_hedonics_new")
+#' @examples data <- get_from_db_usr("SELECT loadid FROM hedonics_new.hedonics_sd")
 #'
 #' @examples # Select multiple fields from a given table
-#' @examples data <- get_from_db_usr("SELECT loadid, transid FROM hedonics_new.sd_hedonics_new")
+#' @examples data <- get_from_db_usr("SELECT loadid, transid FROM hedonics_new.hedonics_sd")
 #'
 #' @examples # Select limited rows from a given table
-#' @examples data <- get_from_db_usr("SELECT * FROM hedonics_new.sd_hedonics_new limit 10")
+#' @examples data <- get_from_db_usr("SELECT * FROM hedonics_new.hedonics_sd limit 10")
 #'
 #' @examples # Select a 'bounding box' from a given table
-#' @examples data <- get_from_db_usr("SELECT * FROM hedonics_new.sd_hedonics_new WHERE (propertyaddresslatitude BETWEEN 44.35 AND 44.36) AND (propertyaddresslongitude BETWEEN -98.22 AND -98.21)")
+#' @examples data <- get_from_db_usr("SELECT * FROM hedonics_new.hedonics_sd WHERE (propertyaddresslatitude BETWEEN 44.35 AND 44.36) AND (propertyaddresslongitude BETWEEN -98.22 AND -98.21)")
 #'
 #' @examples # Select from a list for a column (columns) in a given table
-#' @examples get_from_db_usr("SELECT * FROM hedonics_new.sd_hedonics_new WHERE county IN ('BEADLE', 'UNION')")
+#' @examples get_from_db_usr("SELECT * FROM hedonics_new.hedonics_sd WHERE county IN ('BEADLE', 'UNION')")
 #'
 #' @examples # Get the number of records (rows) in a given table
-#' @examples get_from_db_usr("SELECT count(*) FROM hedonics_new.sd_hedonics_new")
+#' @examples get_from_db_usr("SELECT count(*) FROM hedonics_new.hedonics_sd")
 #'
 #' @examples # Get the range of a specific field
-#' @examples get_from_db_usr("SELECT min(propertyaddresslatitude), max(propertyaddresslatitude) FROM hedonics_new.sd_hedonics_new")
+#' @examples get_from_db_usr("SELECT min(propertyaddresslatitude), max(propertyaddresslatitude) FROM hedonics_new.hedonics_sd")
 #' @return A data.frame returned by the given query.
 #' @import RPostgreSQL DBI
 #' @export
