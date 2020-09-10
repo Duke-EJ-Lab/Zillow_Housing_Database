@@ -45,7 +45,7 @@ get_from_db_state <- function(states_abbr, columns="*", max_num_recs=-1, databas
   for (i in 1:len){
     state <- states_abbr[i]
     # ignore non-existing states & check for the table
-    if(!RPostgreSQL::dbExistsTable(con, c("hedonics_new", paste0("hedonics_new_",state)))){
+    if(!RPostgreSQL::dbExistsTable(con, c("hedonics_new", paste0("hedonics_",state)))){
       print(paste("Skipping State:", state))
       next
     }
