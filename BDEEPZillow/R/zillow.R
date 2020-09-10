@@ -23,6 +23,7 @@
 #' @export
 get_from_db_state <- function(states_abbr, columns="*", max_num_recs=-1, database_name="zillow_2017_nov",
                               host_ip="db1.econ.duke.edu", append=TRUE){
+  print("Connecting to database:")
   # Make sure states_abbr are lower cased
   states_abbr <- tolower(states_abbr)
   # Gets database driver, assuming PostgreSQL database
@@ -35,6 +36,7 @@ get_from_db_state <- function(states_abbr, columns="*", max_num_recs=-1, databas
                                 port = 5432,
                                 user = "cegeddin",
                                 password = "letmein!")
+  print("Connected! Now extracting data...")
   # Get input length
   len <- length(states_abbr)
   # Create returned list
