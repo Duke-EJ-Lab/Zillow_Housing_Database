@@ -34,8 +34,8 @@ get_from_db_state <- function(states_abbr, columns="*", max_num_recs=-1, databas
                                 dbname = database_name,
                                 host = host_ip,
                                 port = 5432,
-                                user = "cegeddin",
-                                password = "letmein!")
+                                user = "zrw",
+                                password = "thezillowdance")
   print("Connected! Now extracting data...")
   # Get input length
   len <- length(states_abbr)
@@ -119,8 +119,8 @@ get_from_db_state_county <- function(state_county, columns="*", database_name="z
                                 dbname = database_name,
                                 host = host_ip,
                                 port = 5432,
-                                user = "cegeddin",
-                                password = "letmein!")
+                                user = "zrw",
+                                password = "thezillowdance")
   # Process state-county sequentially
   options(warn = -1)    # suppress warning messages
   for(i in 1:nrow(state_county)){
@@ -212,8 +212,8 @@ get_from_db_usr <- function(query, database_name="zillow_2017_nov", host_ip="db1
                                 dbname = database_name,
                                 host = host_ip,
                                 port = 5432,
-                                user = "cegeddin",
-                                password = "letmein!")
+                                user = "zrw",
+                                password = "thezillowdance")
   # Get data
   options(warn = -1)    # suppress warning messages
   hedonics <- RPostgreSQL::dbGetQuery(con, query)
