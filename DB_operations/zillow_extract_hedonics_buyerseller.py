@@ -36,20 +36,6 @@ conn = psycopg2.connect(conn_string)
 cursor = conn.cursor()
 print("Connected to database: host = db1.econ.duke.edu dbname = {} user = 'zrw'".format(dbname))
 
-# deleting temporary schemas if necessary
-print("Only final hedonic database will be kept. All temporary tables are being deleted.")
-cursor.execute(""" DROP TABLE IF EXISTS hedonics_new.hedonics_aug_%s """ % (st_num))
-cursor.execute(""" DROP TABLE IF EXISTS %s.BASE """ % (zasmschema))
-cursor.execute(""" DROP TABLE IF EXISTS %s.BLDG """ % (zasmschema))
-cursor.execute(""" DROP TABLE IF EXISTS %s.HEDONICS """ % (zasmschema))
-cursor.execute(""" DROP TABLE IF EXISTS %s.PROPTRANS """ % (ztransschema))
-cursor.execute(""" DROP TABLE IF EXISTS %s.TRANS """ % (ztransschema))
-cursor.execute(""" DROP TABLE IF EXISTS %s.HEDONICS """ % (ztransschema))
-cursor.execute(""" DROP TABLE IF EXISTS %s.BUYERN """ % (ztransschema))
-cursor.execute(""" DROP TABLE IF EXISTS %s.SELLERN""" % (ztransschema))
-cursor.execute(""" DROP TABLE IF EXISTS %s.BUYERSELLER""" % (ztransschema))
-conn.commit()
-
 # Start constructing hedonics
 print("Start Constructing hedonics...")
 # ZAsmt hedonics
